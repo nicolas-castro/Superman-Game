@@ -22,8 +22,8 @@ function drawBackground (){
 const fireballImg = new Image();
 const supermanImg = new Image();
 
-fireballImg.src = "./images/fireball.png";
-supermanImg.src = "./images/superman.png";
+fireballImg.src = "images/fireball.png";
+supermanImg.src = "images/superman.png";
 
 let fireballX = 800;
 let fireballY = 200;
@@ -109,7 +109,7 @@ function gameOver(){
   drawBackground();
 
   const tiredSupermanImg = new Image();
-  tiredSupermanImg.src = "./images/tiredSuperman.png";
+  tiredSupermanImg.src = "images/tiredSuperman.png";
     tiredSupermanImg.onload = function(){
         ctx.drawImage(tiredSupermanImg, 480, 300, 150, 150);
     }
