@@ -2,13 +2,17 @@ const myCanvas = document.getElementById("my-canvas");
 
 const ctx = myCanvas.getContext("2d");
 
+let score  = 0;
+let isOver = false;
+
+
 function drawBackground (){
   ctx.fillStyle = "magenta";
   ctx.fillRect(0, 0, 1000, 500);
 
   ctx.fillStyle = "blue";
   ctx.font = "30PX Arial";
-  ctx.fillText("Nicolas:" , 800, 50);
+  ctx.fillText(`Score: ${score}` , 800, 50);
 
 
 }
@@ -64,15 +68,55 @@ function drawingLoop(){
     fireballY = Math.floor(Math.random() * 500);
   }
 
-  ctx.drawImage(fireballImg, fireballX, fireballY, 50, 50);
+  drawEverything();
 
+  if(isOver === false){
+    requestAnimationFrame(function(){
+      drawingLoop();
+    });
+  }
+}
 
+function drawEverything(){
+  ctx.drawImage(fireballImg, fireballX, fireballY, 60, 60);
   ctx.drawImage(supermanImg, supermanX, supermanY, 150, 150);
 
-  requestAnimationFrame(function(){
-    drawingLoop();
-  });
+  if(checkCollision(supermanX, supermanY, fireballX, fireballY)){
+    gameOver();
+    
+    // fireballX = 1000;
+    // fireballY = Math.floor(Math.random() * 500);
+    
+    // score --;
+  }
 
+  if(fireballX === 0){
+    score ++;
+  }
+
+}
+
+function checkCollision(obj1x, obj1y, obj2x, obj2y){
+  
+    return obj1y + 150 >= obj2y
+        && obj1y <= obj2y + 50
+        &&obj1x + 150 >= obj2x
+        &&obj1x <= obj2x + 50
+}
+
+function gameOver(){
+  ctx.clearRect(0, 0, 1000, 500);
+  drawBackground();
+
+  const tiredSupermanImg = new Image();
+  tiredSupermanImg.src = "./images/tiredSuperman.png";
+    tiredSupermanImg.onload = function(){
+        ctx.drawImage(tiredSupermanImg, 480, 300, 150, 150);
+    }
+  isOver = true;
+  ctx.font = "bold 70px monospace";
+  ctx.fillStyle = "red";
+  ctx.fillText("Game Over", 400, 225)
 }
 
 drawingLoop();
