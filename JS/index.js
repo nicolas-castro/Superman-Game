@@ -22,8 +22,8 @@ function drawBackground (){
 const fireballImg = new Image();
 const supermanImg = new Image();
 
-fireballImg.src = "./images/fireball.png";
-supermanImg.src = "./images/superman.png";
+fireballImg.src = "images/fireball.png";
+supermanImg.src = "images/superman.png";
 
 let fireballX = 800;
 let fireballY = 200;
